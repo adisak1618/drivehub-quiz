@@ -1,22 +1,8 @@
 import axios from "axios";
+import { carListDataResponse, CartType } from "common";
 import React from "react";
 import { useQuery } from "react-query";
 import { Button, CarCard, useField } from "ui";
-
-export interface CartType extends CarType {
-  amount: number;
-}
-export interface CarType {
-  title: string;
-  photo: string;
-  price: number;
-}
-export interface carListDataResponse {
-  items: {
-    fields: CarType;
-  }[];
-  total: number;
-}
 
 export const CarListing = () => {
   const [{ value }, _, helper] = useField<CartType[]>("cart");

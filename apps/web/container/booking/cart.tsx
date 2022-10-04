@@ -1,18 +1,6 @@
+import { CartType } from "common";
 import React from "react";
 import { Button, CarCard, FieldArray, FormikNumberInput, useField } from "ui";
-
-import { CartType } from "./carListing";
-
-interface carListDataResponse {
-  items: {
-    fields: {
-      title: string;
-      photo: string;
-      price: number;
-    };
-  }[];
-  total: number;
-}
 
 export const Cart = () => {
   const [{ value }, _, helper] = useField<CartType[]>("cart");
