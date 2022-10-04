@@ -1,20 +1,25 @@
 import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
-import { Button, CarCard } from "ui";
+import { Button, CarCard, useField } from "ui";
 
-interface carListDataResponse {
+export interface CartType extends CarType {
+  amount: number;
+}
+export interface CarType {
+  title: string;
+  photo: string;
+  price: number;
+}
+export interface carListDataResponse {
   items: {
-    fields: {
-      title: string;
-      photo: string;
-      price: number;
-    };
+    fields: CarType;
   }[];
   total: number;
 }
 
 export const CarListing = () => {
+  const [{ value }, _, helper] = useField<CartType[]>("cart");
   const { data: carListData, isLoading } = useQuery<carListDataResponse>(
     ["car_listing"],
     async () => {
@@ -39,7 +44,17 @@ export const CarListing = () => {
             cover={photo}
             button={
               <div className="flex items-center p-4">
-                <Button>Add To Cart</Button>
+                <Button
+                  onClick={() =>
+                    helper.setValue([
+                      ...value,
+                      { photo, price, title, amount: 1 },
+                    ])
+                  }
+                  disabled={value.map((item) => item.title).includes(title)}
+                >
+                  Add To Cart
+                </Button>
               </div>
             }
           />
