@@ -1,4 +1,9 @@
-import { calculatePrice, CartType, numberWithCommas } from "common";
+import {
+  calculatePrice,
+  CartType,
+  DiscountType,
+  numberWithCommas,
+} from "common";
 import { useState } from "react";
 import { Button, Formik, Modal } from "ui";
 
@@ -7,6 +12,7 @@ import { Cart } from "../container/booking/cart";
 
 export interface CartProps {
   cart: CartType[];
+  discount: DiscountType | null;
 }
 
 export default function Web() {
@@ -15,6 +21,7 @@ export default function Web() {
     <Formik<CartProps>
       initialValues={{
         cart: [],
+        discount: null,
       }}
       onSubmit={() => {}}
     >

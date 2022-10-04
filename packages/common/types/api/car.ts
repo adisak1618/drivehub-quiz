@@ -1,6 +1,6 @@
 import { CarType } from "..";
 
-export interface carListDataResponse {
+export interface CarDataResponse {
   items: {
     fields: CarType;
   }[];

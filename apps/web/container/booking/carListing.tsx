@@ -1,12 +1,12 @@
 import axios from "axios";
-import { carListDataResponse, CartType } from "common";
+import { CarDataResponse, CartType } from "common";
 import React from "react";
 import { useQuery } from "react-query";
 import { Button, CarCard, useField } from "ui";
 
 export const CarListing = () => {
   const [{ value }, _, helper] = useField<CartType[]>("cart");
-  const { data: carListData, isLoading } = useQuery<carListDataResponse>(
+  const { data: carListData, isLoading } = useQuery<CarDataResponse>(
     ["car_listing"],
     async () => {
       const { data } = await axios.get(

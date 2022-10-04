@@ -1,9 +1,18 @@
-import { calculatePrice, CartType, numberWithCommas } from "common";
-import React from "react";
+import {
+  calculatePrice,
+  CartType,
+  DiscountType,
+  numberWithCommas,
+} from "common";
+import React, { useState } from "react";
 import { Button, CarCard, FieldArray, FormikNumberInput, useField } from "ui";
 
+import { DiscountModal } from "./discountModal";
+
 export const Cart = () => {
-  const [{ value }] = useField<CartType[]>("cart");
+  const [isOpenModalDiscount, setIsOpenModalDiscount] = useState(false);
+  const [{ value: cart }] = useField<CartType[]>("cart");
+  const [{ value: discount }] = useField<DiscountType | null>("discount");
 
   return (
     <div className="border border-gray-3 rounded-lg">
@@ -11,7 +20,7 @@ export const Cart = () => {
         <p className="text-gray-9 text-body3 font-bold">รายการรถ</p>
       </div>
       <div className="p-3 flex flex-col gap-4">
-        {value.length === 0 && (
+        {cart.length === 0 && (
           <div className="text-center text-body6 text-gray-5 py-4">
             Please select your cars
           </div>
@@ -20,7 +29,7 @@ export const Cart = () => {
           name="cart"
           render={({ remove }) => (
             <>
-              {value.map((cart, index) => (
+              {cart.map((cart, index) => (
                 <CarCard
                   key={cart.title}
                   title={cart.title}
@@ -47,12 +56,25 @@ export const Cart = () => {
       <div className="border-t border-gray-3 p-4 flex">
         <p className="text-gray-9 text-body4 font-semibold flex-1">Total</p>
         <p className="text-gray-8 text-body4 font-semibold">
-          {numberWithCommas(calculatePrice(value))} THB
+          {numberWithCommas(calculatePrice(cart))} THB
         </p>
       </div>
       <div className="border-t border-gray-3 p-4 flex">
         <p className="text-gray-9 text-body4 font-semibold flex-1">Discount</p>
-        <p className="text-gray-8 text-body4 font-semibold">1200 THB</p>
+        {discount && (
+          <div>
+            <p className="text-gray-8 text-body4 font-semibold">1200 THB</p>
+          </div>
+        )}
+        {!discount && (
+          <Button onClick={() => setIsOpenModalDiscount(true)}>
+            Add Your Code
+          </Button>
+        )}
+        <DiscountModal
+          isOpen={isOpenModalDiscount}
+          onClose={() => setIsOpenModalDiscount(false)}
+        />
       </div>
       <div className="border-t border-gray-3 p-4 flex">
         <p className="text-gray-9 text-body4 font-semibold flex-1">
