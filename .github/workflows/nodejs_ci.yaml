@@ -151,5 +151,5 @@ jobs:
           key: ${{ runner.os }}-test-node-${{ env.NODE_VERSION }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
         run: yarn install --no-progress --non-interactive --prefer-offline
-      - name: build
+      - name: unit-test
         run: yarn test
