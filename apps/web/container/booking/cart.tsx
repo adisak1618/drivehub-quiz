@@ -27,7 +27,7 @@ export const Cart = () => {
                   price={cart.price}
                   cover={cart.photo}
                   button={
-                    <div className="flex items-center pr-4 gap-2">
+                    <div className="flex flex-col items-center py-2 pr-2 gap-2">
                       <FormikNumberInput name={`cart.${index}.amount`} />
                       <Button
                         color="danger"

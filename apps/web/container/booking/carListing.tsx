@@ -17,7 +17,7 @@ export const CarListing = () => {
   );
 
   return (
-    <div className="border border-gray-3 rounded-lg col-span-3">
+    <div className="border border-gray-3 rounded-lg col-span-1">
       <div className="border-b border-gray-3 p-3 bg-gray-2">
         <p className="text-gray-9 text-body3 font-bold">รายการรถ</p>
       </div>
@@ -29,7 +29,7 @@ export const CarListing = () => {
             price={price}
             cover={photo}
             button={
-              <div className="flex items-center p-4">
+              <div className="flex items-center pr-4">
                 <Button
                   onClick={() =>
                     helper.setValue([

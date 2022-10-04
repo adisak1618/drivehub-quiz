@@ -8,6 +8,7 @@
     "lint": "eslint *.ts*"
   },
   "dependencies": {
+    "common": "*",
     "@headlessui/react": "^1.7.3",
     "clsx": "^1.2.1",
     "formik": "^2.2.9",

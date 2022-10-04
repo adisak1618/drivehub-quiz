@@ -23,9 +23,9 @@ export default function Web() {
           <h1 className="text-center font-mono text-3xl font-bold pt-10">
             Drivehub
           </h1>
-          <div className="grid md:grid-cols-5 mt-4 gap-4">
+          <div className="grid md:grid-cols-2 mt-4 gap-4">
             <CarListing />
-            <div className="hidden md:block col-span-2 self-start">
+            <div className="hidden md:block self-start">
               <Cart />
             </div>
           </div>
