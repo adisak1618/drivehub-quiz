@@ -23,7 +23,7 @@ export const FormikInput = (
         }}
       />
       {meta.error && meta.touched && (
-        <div className="mt-0.5 flex flex-wrap text-red-5">{meta.error}</div>
+        <div className="mt-0.5 flex flex-wrap text-red-500">{meta.error}</div>
       )}
     </>
   );

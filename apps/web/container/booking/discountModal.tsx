@@ -1,8 +1,8 @@
 import axios from "axios";
-import { DiscountDataResponse } from "common";
+import { DiscountDataResponse, DiscountType } from "common";
 import React from "react";
 import { useQuery } from "react-query";
-import { Modal } from "ui";
+import { Button, Form, Formik, FormikInput, Modal, useField } from "ui";
 
 interface DiscountModalProps {
   isOpen: boolean;
@@ -10,7 +10,8 @@ interface DiscountModalProps {
 }
 
 export const DiscountModal = ({ isOpen, onClose }: DiscountModalProps) => {
-  const { data: discountListData, isLoading } = useQuery<DiscountDataResponse>(
+  const [, , discountHelper] = useField<DiscountType | null>("discount");
+  const { data: discountListData } = useQuery<DiscountDataResponse>(
     ["discount_listing"],
     async () => {
       const { data } = await axios.get(
@@ -22,7 +23,36 @@ export const DiscountModal = ({ isOpen, onClose }: DiscountModalProps) => {
 
   return (
     <Modal title="Add Your Discount Code" isOpen={isOpen} onClose={onClose}>
-      <div>discount</div>
+      <Formik
+        initialValues={{
+          code: "",
+        }}
+        onSubmit={(values, helper) => {
+          const discount = discountListData?.items.find(
+            (item) => item.fields.code === values.code
+          );
+          if (!discount) {
+            helper.setErrors({
+              code: "Your code is invalid",
+            });
+            return;
+          }
+          discountHelper.setValue({
+            amount: discount.fields.amount,
+            code: discount.fields.code,
+          });
+          onClose();
+        }}
+      >
+        <Form>
+          <FormikInput name="code" />
+          <div className="flex justify-center mt-4">
+            <Button size="md" color="primary" type="submit">
+              Apply
+            </Button>
+          </div>
+        </Form>
+      </Formik>
     </Modal>
   );
 };

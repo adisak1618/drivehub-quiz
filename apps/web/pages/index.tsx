@@ -1,5 +1,5 @@
 import {
-  calculatePrice,
+  calculateTotalPrice,
   CartType,
   DiscountType,
   numberWithCommas,
@@ -42,7 +42,7 @@ export default function Web() {
               <div className="text-body4">
                 <span className="text-gray-9">Total Price </span>
                 <span className="text-primary font-bold">
-                  ฿ {numberWithCommas(calculatePrice(values.cart))}
+                  ฿ {numberWithCommas(calculateTotalPrice(values.cart))}
                 </span>
               </div>
             </div>

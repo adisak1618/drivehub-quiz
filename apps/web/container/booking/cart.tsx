@@ -1,5 +1,6 @@
 import {
-  calculatePrice,
+  calculateGrandPrice,
+  calculateTotalPrice,
   CartType,
   DiscountType,
   numberWithCommas,
@@ -12,8 +13,11 @@ import { DiscountModal } from "./discountModal";
 export const Cart = () => {
   const [isOpenModalDiscount, setIsOpenModalDiscount] = useState(false);
   const [{ value: cart }] = useField<CartType[]>("cart");
-  const [{ value: discount }] = useField<DiscountType | null>("discount");
+  const [{ value: discount }, , discountHelper] = useField<DiscountType | null>(
+    "discount"
+  );
 
+  const totalPrice = calculateTotalPrice(cart);
   return (
     <div className="border border-gray-3 rounded-lg">
       <div className="border-b border-gray-3 p-3 bg-gray-2">
@@ -56,14 +60,23 @@ export const Cart = () => {
       <div className="border-t border-gray-3 p-4 flex">
         <p className="text-gray-9 text-body4 font-semibold flex-1">Total</p>
         <p className="text-gray-8 text-body4 font-semibold">
-          {numberWithCommas(calculatePrice(cart))} THB
+          ฿ {numberWithCommas(totalPrice)} THB
         </p>
       </div>
       <div className="border-t border-gray-3 p-4 flex">
         <p className="text-gray-9 text-body4 font-semibold flex-1">Discount</p>
         {discount && (
-          <div>
-            <p className="text-gray-8 text-body4 font-semibold">1200 THB</p>
+          <div className="flex gap-1 items-center">
+            <p className="text-gray-8 text-body4">
+              <span className="font-semibold text-primary">
+                ฿ {numberWithCommas(discount.amount)}
+              </span>{" "}
+              discount from code{" "}
+              <span className="font-semibold text-primary">
+                {discount.code}
+              </span>
+            </p>
+            <Button onClick={() => discountHelper.setValue(null)}>ลบ</Button>
           </div>
         )}
         {!discount && (
@@ -80,7 +93,12 @@ export const Cart = () => {
         <p className="text-gray-9 text-body4 font-semibold flex-1">
           Grand Total
         </p>
-        <p className="text-gray-8 text-body4 font-semibold">1200 THB</p>
+        <p className="text-gray-8 text-body4 font-semibold">
+          ฿{" "}
+          {numberWithCommas(
+            calculateGrandPrice({ totalPrice, discount: discount?.amount || 0 })
+          )}
+        </p>
       </div>
     </div>
   );
