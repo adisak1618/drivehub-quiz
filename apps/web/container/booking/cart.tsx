@@ -21,7 +21,7 @@ export const Cart = () => {
   return (
     <div className="border border-gray-3 rounded-lg">
       <div className="border-b border-gray-3 p-3 bg-gray-2">
-        <p className="text-gray-9 text-body3 font-bold">รายการรถ</p>
+        <p className="text-gray-9 text-body3 font-bold">Cart</p>
       </div>
       <div className="p-3 flex flex-col gap-4">
         {cart.length === 0 && (
@@ -47,7 +47,7 @@ export const Cart = () => {
                         size="sm"
                         onClick={() => remove(index)}
                       >
-                        ลบ
+                        Delete
                       </Button>
                     </div>
                   }
@@ -76,7 +76,9 @@ export const Cart = () => {
                 {discount.code}
               </span>
             </p>
-            <Button onClick={() => discountHelper.setValue(null)}>ลบ</Button>
+            <Button onClick={() => discountHelper.setValue(null)}>
+              remove
+            </Button>
           </div>
         )}
         {!discount && (
