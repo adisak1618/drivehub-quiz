@@ -6,7 +6,7 @@ export const Cart = () => {
   const [{ value }] = useField<CartType[]>("cart");
 
   return (
-    <div className="border border-gray-3 rounded-lg col-span-2 self-start">
+    <div className="border border-gray-3 rounded-lg">
       <div className="border-b border-gray-3 p-3 bg-gray-2">
         <p className="text-gray-9 text-body3 font-bold">รายการรถ</p>
       </div>
