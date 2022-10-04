@@ -1,9 +1,9 @@
-import { CartType } from "common";
+import { calculatePrice, CartType, numberWithCommas } from "common";
 import React from "react";
 import { Button, CarCard, FieldArray, FormikNumberInput, useField } from "ui";
 
 export const Cart = () => {
-  const [{ value }, _, helper] = useField<CartType[]>("cart");
+  const [{ value }] = useField<CartType[]>("cart");
 
   return (
     <div className="border border-gray-3 rounded-lg col-span-2 self-start">
@@ -11,6 +11,11 @@ export const Cart = () => {
         <p className="text-gray-9 text-body3 font-bold">รายการรถ</p>
       </div>
       <div className="p-3 flex flex-col gap-4">
+        {value.length === 0 && (
+          <div className="text-center text-body6 text-gray-5 py-4">
+            Please select your cars
+          </div>
+        )}
         <FieldArray
           name="cart"
           render={({ remove }) => (
@@ -38,23 +43,12 @@ export const Cart = () => {
             </>
           )}
         />
-        {/* {carListData?.items.map(({ fields: { photo, price, title } }) => (
-          <CarCard
-            key={title}
-            title={title}
-            price={price}
-            cover={photo}
-            button={
-              <div className="flex items-center pr-4">
-                <FormikNumberInput name="test" />
-              </div>
-            }
-          />
-        ))} */}
       </div>
       <div className="border-t border-gray-3 p-4 flex">
         <p className="text-gray-9 text-body4 font-semibold flex-1">Total</p>
-        <p className="text-gray-8 text-body4 font-semibold">1200 THB</p>
+        <p className="text-gray-8 text-body4 font-semibold">
+          {numberWithCommas(calculatePrice(value))} THB
+        </p>
       </div>
       <div className="border-t border-gray-3 p-4 flex">
         <p className="text-gray-9 text-body4 font-semibold flex-1">Discount</p>

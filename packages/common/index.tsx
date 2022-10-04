@@ -1,2 +1,2 @@
-export * from "./lib/calculatePrice";
+export * from "./lib";
 export * from "./types";
