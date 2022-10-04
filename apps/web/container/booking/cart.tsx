@@ -60,7 +60,7 @@ export const Cart = () => {
       <div className="border-t border-gray-3 p-4 flex">
         <p className="text-gray-9 text-body4 font-semibold flex-1">Total</p>
         <p className="text-gray-8 text-body4 font-semibold">
-          ฿ {numberWithCommas(totalPrice)} THB
+          ฿ {numberWithCommas(totalPrice)}
         </p>
       </div>
       <div className="border-t border-gray-3 p-4 flex">
