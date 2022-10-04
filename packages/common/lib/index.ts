@@ -1,3 +1,3 @@
 export * from "./calculateGrandPrice";
-export * from "./calculatePrice";
+export * from "./calculateTotalPrice";
 export * from "./numberWithCommas";

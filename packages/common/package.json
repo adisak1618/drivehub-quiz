@@ -5,7 +5,8 @@
   "types": "./index.tsx",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint *.ts*"
+    "lint": "eslint *.ts*",
+    "test": "jest --coverage --runInBand"
   },
   "dependencies": {
     "date-fns": "^2.29.2"
